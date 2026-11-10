@@ -1,0 +1,229 @@
+---
+/**
+ * Home page: the one-page layout from the original Wix site.
+ *
+ *  1. Full-screen city skyline with a frosted card holding the logo.
+ *  2. The same skyline washed out to white, with the headline, the notice
+ *     and the association logos.
+ *  3. Footer: copyright, back to top, privacy policy.
+ *
+ * Everything is edited in the admin on the Home page:
+ * - Logo: the Hero block's image. Headline and notice: its headline and subheadline.
+ * - Background photo: the gallery block with Anchor ID "background".
+ * - Association logos: the gallery block with Anchor ID "associations".
+ * - The gallery with Anchor ID "site-icon" is not shown on the page.
+ */
+import { getEmDashEntry, getSeoMeta } from "emdash";
+import { Image } from "emdash/ui";
+import type { PageContentBlock } from "../../emdash-env";
+import SiteFooter from "../components/SiteFooter.astro";
+import Base from "../layouts/Base.astro";
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", "home");
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const blocks: PageContentBlock[] = page?.data.content ?? [];
+type Hero = Extract<PageContentBlock, { _type: "marketing_hero" }>;
+type Gallery = Extract<PageContentBlock, { _type: "marketing_gallery" }>;
+
+const hero = blocks.find((b): b is Hero => b._type === "marketing_hero");
+const galleries = blocks.filter((b): b is Gallery => b._type === "marketing_gallery");
+const galleryImages = (anchor: string) =>
+	(galleries.find((g) => g.anchor_id === anchor)?.images ?? [])
+		.map((item) => item?.image)
+		.filter((img): img is NonNullable<typeof img> => !!img);
+
+const background = galleryImages("background")[0];
+const associations = galleryImages("associations");
+
+const headline = hero?.headline || "Vault Cash Provision & Financing";
+const notice = hero?.subheadline ?? "General inquiries are not accepted at this time.";
+
+const seo = page
+	? getSeoMeta(page, {
+			siteUrl: Astro.url.origin,
+			path: "/",
+			defaultDescription:
+				"Goat Mountain Enterprises is a premium provider of vault cash, specialty financing and brokerage services in the ATM and vending industry.",
+		})
+	: null;
+---
+
+<Base
+	title={seo?.title && seo.title !== "Home" ? seo.title : "Vault Cash, Financing, Brokerage"}
+	pageTitle={page?.data.title}
+	description={seo?.description}
+	image={seo?.ogImage}
+	canonical={seo?.canonical}
+	robots={seo?.robots}
+	content={page ? { collection: "pages", id: page.data.id, slug: page.id } : undefined}
+	bare
+>
+	<div class="gm-page">
+		{background && (
+			<div class="gm-bg" aria-hidden="true">
+				<Image image={background} alt="" class="gm-bg-media" priority />
+			</div>
+		)}
+
+		<section class="gm-hero">
+			<div class="gm-card">
+				{hero?.image ? (
+					<Image image={hero.image} class="gm-logo" priority />
+				) : (
+					<p class="gm-logo-text">Goat Mountain Enterprises</p>
+				)}
+			</div>
+		</section>
+
+		<section class="gm-info">
+			<div class="gm-info-text">
+				<h1>{headline}</h1>
+				{notice && <p>{notice}</p>}
+			</div>
+
+			{associations.length > 0 && (
+				<ul class="gm-associations" aria-label="Industry memberships">
+					{associations.map((img) => (
+						<li>
+							<Image image={img} class="gm-association-logo" />
+						</li>
+					))}
+				</ul>
+			)}
+		</section>
+
+		<SiteFooter overlay />
+	</div>
+</Base>
+
+<style>
+	.gm-page {
+		position: relative;
+		isolation: isolate;
+		color: #0e2e47;
+	}
+
+	/* The skyline stays put while the page scrolls over it, like the Wix site. */
+	.gm-bg {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		background: #2f3a44;
+	}
+
+	.gm-bg :global(.gm-bg-media),
+	.gm-bg :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		display: block;
+	}
+
+	.gm-hero {
+		min-height: 100vh;
+		min-height: 100svh;
+		display: grid;
+		place-items: center;
+		padding: 24px 16px;
+	}
+
+	.gm-card {
+		width: min(1100px, 100%);
+		aspect-ratio: 1088 / 440;
+		display: grid;
+		place-items: center;
+		padding: clamp(16px, 3vw, 40px);
+		background: rgba(255, 255, 255, 0.62);
+		border-radius: 8px;
+		backdrop-filter: blur(1px);
+	}
+
+	.gm-card :global(.gm-logo),
+	.gm-card :global(img) {
+		width: auto;
+		max-width: min(600px, 80%);
+		max-height: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+
+	.gm-logo-text {
+		font-size: clamp(1.5rem, 4vw, 3rem);
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	.gm-info {
+		min-height: 100vh;
+		min-height: 100svh;
+		display: grid;
+		grid-template-rows: 1fr auto;
+		gap: 48px;
+		padding: clamp(64px, 14vh, 160px) 16px 64px;
+		/* Washes the skyline out to white, like the lower half of the Wix page. */
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.45) 0%,
+			rgba(255, 255, 255, 0.78) 30%,
+			rgba(255, 255, 255, 0.86) 100%
+		);
+	}
+
+	.gm-info-text {
+		text-align: center;
+	}
+
+	.gm-info h1 {
+		font-family: var(--font-body);
+		font-size: clamp(1.15rem, 2.4vw, 1.75rem);
+		font-weight: 300;
+		letter-spacing: 0.2em;
+		line-height: 1.4;
+		text-transform: uppercase;
+		color: #0e2e47;
+	}
+
+	.gm-info p {
+		margin-top: 16px;
+		font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+		font-weight: 300;
+	}
+
+	.gm-associations {
+		list-style: none;
+		margin: 0 auto;
+		padding: 0;
+		width: min(1000px, 100%);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-around;
+		gap: 32px 48px;
+	}
+
+	.gm-associations :global(.gm-association-logo),
+	.gm-associations :global(img) {
+		width: auto;
+		height: auto;
+		max-height: 200px;
+		max-width: min(600px, 80vw);
+		object-fit: contain;
+	}
+
+	.gm-associations li:first-child :global(img) {
+		max-height: 200px;
+	}
+
+	@media (max-width: 600px) {
+		.gm-card {
+			aspect-ratio: auto;
+			min-height: 220px;
+		}
+
+		.gm-associations :global(img) {
+			max-height: 140px;
+		}
+	}
+</style>

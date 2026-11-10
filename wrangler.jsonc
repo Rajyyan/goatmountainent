@@ -1,0 +1,40 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "goatmountain",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-02-24",
+	"compatibility_flags": ["nodejs_compat"],
+	// Workers Logs + Traces (Cloudflare workers-best-practices)
+	"observability": {
+		"enabled": true,
+		"logs": { "enabled": true, "head_sampling_rate": 1 },
+		"traces": { "enabled": true, "head_sampling_rate": 0.1 },
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "goatmountain",
+			"database_id": "90dc2a17-dea2-43b3-8dd7-7e10a15f63f3",
+		},
+	],
+	// Resizes R2 photos on the fly (EmDash image endpoint); the Astro Cloudflare
+	// adapter adds these at build too -- listed here so the intent is explicit.
+	"images": {
+		"binding": "IMAGES",
+	},
+	"cache": {
+		"enabled": true,
+	},
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "goatmountain-media",
+		},
+	],
+	// Sandboxed plugins require Worker Loader, available on Workers paid plans. Uncomment to enable:
+	// "worker_loaders": [{ "binding": "LOADER" }],
+	// General maintenance cron trigger
+	"triggers": {
+		"crons": ["* * * * *"],
+	},
+}

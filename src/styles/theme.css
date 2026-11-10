@@ -1,0 +1,55 @@
+/*
+  theme.css -- Goat Mountain Enterprises theme, matched to the original Wix site:
+  white, deep navy text (#0e2e47), light Futura-style type (Jost), no gradients,
+  light mode only. Overrides the defaults in tokens.css.
+*/
+
+:root,
+:root.dark,
+:root.light {
+	color-scheme: light;
+
+	--color-bg: #ffffff;
+	--color-surface: #f5f7f9;
+	--color-text: #0e2e47;
+	--color-muted: #5b6b78;
+	--color-border: #e3e8ec;
+
+	--color-brand: #0e2e47;
+	--color-brand-strong: #0a2236;
+	--color-brand-soft: #3d5a72;
+	--color-accent: #9ab89a; /* logo green */
+	--color-accent-soft: #c9dbc9;
+	--color-on-brand: #ffffff;
+
+	--gradient-brand: #0e2e47;
+	--gradient-brand-strong: #0e2e47;
+	--gradient-brand-soft: transparent;
+	--gradient-headline: linear-gradient(#0e2e47, #0e2e47);
+
+	--font-weight-heading: 400;
+	--font-weight-display: 300;
+	--radius-sm: 0;
+	--radius: 0;
+	--radius-lg: 0;
+	--shadow-sm: none;
+	--shadow: none;
+	--shadow-lg: none;
+	--shadow-xl: none;
+}
+
+body {
+	font-weight: 300;
+}
+
+/* Light only, like the original site. */
+.theme-switcher {
+	display: none !important;
+}
+
+/* Text block headings (e.g. Privacy Policy) in the site's spaced capitals. */
+.text-headline {
+	font-weight: 300 !important;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+}

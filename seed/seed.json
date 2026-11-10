@@ -1,0 +1,568 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Goat Mountain Enterprises",
+		"description": "Site for Goat Mountain Enterprises, LLC",
+		"author": "Goat Mountain Enterprises"
+	},
+	"settings": {
+		"title": "Goat Mountain Enterprises",
+		"tagline": "Vault cash provision & financing for the ATM and vending industry."
+	},
+	"blockTypes": [
+		{
+			"slug": "marketing_hero",
+			"label": "Hero",
+			"description": "A prominent page introduction with optional calls to action and media",
+			"category": "Marketing",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "anchor_id",
+							"label": "Anchor ID",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|[a-z][a-z0-9_-]*)$"
+							}
+						},
+						{
+							"slug": "headline",
+							"label": "Headline",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "subheadline",
+							"label": "Subheadline",
+							"type": "text"
+						},
+						{
+							"slug": "primary_cta_label",
+							"label": "Primary CTA label",
+							"type": "string"
+						},
+						{
+							"slug": "primary_cta_url",
+							"label": "Primary CTA URL",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+							}
+						},
+						{
+							"slug": "secondary_cta_label",
+							"label": "Secondary CTA label",
+							"type": "string"
+						},
+						{
+							"slug": "secondary_cta_url",
+							"label": "Secondary CTA URL",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+							}
+						},
+						{
+							"slug": "image",
+							"label": "Image",
+							"type": "image"
+						},
+						{
+							"slug": "centered",
+							"label": "Center the layout",
+							"type": "boolean",
+							"defaultValue": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "marketing_features",
+			"label": "Features",
+			"description": "A grid of product or service features",
+			"category": "Marketing",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "anchor_id",
+							"label": "Anchor ID",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|[a-z][a-z0-9_-]*)$"
+							}
+						},
+						{
+							"slug": "headline",
+							"label": "Headline",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "subheadline",
+							"label": "Subheadline",
+							"type": "text"
+						},
+						{
+							"slug": "features",
+							"label": "Features",
+							"type": "repeater",
+							"required": true,
+							"validation": {
+								"minItems": 1,
+								"maxItems": 12,
+								"subFields": [
+									{
+										"slug": "icon",
+										"label": "Icon",
+										"type": "select",
+										"required": true,
+										"options": [
+											"zap",
+											"shield",
+											"users",
+											"chart",
+											"code",
+											"globe",
+											"heart",
+											"star",
+											"check",
+											"lock",
+											"clock",
+											"cloud"
+										]
+									},
+									{
+										"slug": "title",
+										"label": "Title",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "description",
+										"label": "Description",
+										"type": "text",
+										"required": true
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "marketing_testimonials",
+			"label": "Testimonials",
+			"description": "Customer quotes and attribution",
+			"category": "Marketing",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "anchor_id",
+							"label": "Anchor ID",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|[a-z][a-z0-9_-]*)$"
+							}
+						},
+						{
+							"slug": "headline",
+							"label": "Headline",
+							"type": "string"
+						},
+						{
+							"slug": "testimonials",
+							"label": "Testimonials",
+							"type": "repeater",
+							"required": true,
+							"validation": {
+								"minItems": 1,
+								"maxItems": 12,
+								"subFields": [
+									{
+										"slug": "quote",
+										"label": "Quote",
+										"type": "text",
+										"required": true
+									},
+									{
+										"slug": "author",
+										"label": "Author name",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "role",
+										"label": "Role or title",
+										"type": "string"
+									},
+									{
+										"slug": "company",
+										"label": "Company",
+										"type": "string"
+									},
+									{
+										"slug": "avatar",
+										"label": "Avatar",
+										"type": "image"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "marketing_faq",
+			"label": "FAQ",
+			"description": "A list of frequently asked questions",
+			"category": "Marketing",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "anchor_id",
+							"label": "Anchor ID",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|[a-z][a-z0-9_-]*)$"
+							}
+						},
+						{
+							"slug": "headline",
+							"label": "Headline",
+							"type": "string"
+						},
+						{
+							"slug": "items",
+							"label": "Questions",
+							"type": "repeater",
+							"required": true,
+							"validation": {
+								"minItems": 1,
+								"maxItems": 12,
+								"subFields": [
+									{
+										"slug": "question",
+										"label": "Question",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "answer",
+										"label": "Answer",
+										"type": "text",
+										"required": true
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "marketing_gallery",
+			"label": "Photo gallery",
+			"description": "A grid of photos",
+			"category": "Marketing",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "anchor_id",
+							"label": "Anchor ID",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|[a-z][a-z0-9_-]*)$"
+							}
+						},
+						{
+							"slug": "headline",
+							"label": "Headline",
+							"type": "string"
+						},
+						{
+							"slug": "columns",
+							"label": "Columns",
+							"type": "select",
+							"defaultValue": "3",
+							"validation": {
+								"options": [
+									"2",
+									"3",
+									"4"
+								]
+							}
+						},
+						{
+							"slug": "images",
+							"label": "Photos",
+							"type": "repeater",
+							"required": true,
+							"validation": {
+								"minItems": 1,
+								"maxItems": 24,
+								"subFields": [
+									{
+										"slug": "image",
+										"label": "Photo",
+										"type": "image",
+										"required": true
+									},
+									{
+										"slug": "caption",
+										"label": "Caption",
+										"type": "string"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "marketing_text",
+			"label": "Text",
+			"description": "A heading with plain paragraphs. Leave a blank line between paragraphs.",
+			"category": "Marketing",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "anchor_id",
+							"label": "Anchor ID",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|[a-z][a-z0-9_-]*)$"
+							}
+						},
+						{
+							"slug": "headline",
+							"label": "Headline",
+							"type": "string"
+						},
+						{
+							"slug": "body",
+							"label": "Body",
+							"type": "text"
+						},
+						{
+							"slug": "footnote",
+							"label": "Footnote",
+							"type": "string"
+						},
+						{
+							"slug": "cta_label",
+							"label": "Button label",
+							"type": "string"
+						},
+						{
+							"slug": "cta_url",
+							"label": "Button URL",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"collections": [
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"supports": [
+				"drafts",
+				"revisions",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "blocks",
+					"validation": {
+						"allowedTypes": [
+							"marketing_hero",
+							"marketing_features",
+							"marketing_testimonials",
+							"marketing_faq",
+							"marketing_gallery",
+							"marketing_text"
+						],
+						"maxItems": 20
+					}
+				}
+			]
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Home",
+					"url": "/"
+				}
+			]
+		},
+		{
+			"name": "footer_site",
+			"label": "Footer: Site",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Privacy Policy",
+					"url": "/privacy-policy"
+				}
+			]
+		},
+		{
+			"name": "footer_contact",
+			"label": "Footer: Contact",
+			"items": []
+		}
+	],
+	"content": {
+		"pages": [
+			{
+				"id": "home",
+				"slug": "home",
+				"status": "published",
+				"data": {
+					"title": "Home",
+					"content": [
+						{
+							"_type": "marketing_hero",
+							"_version": 1,
+							"_key": "hero",
+							"headline": "Vault Cash Provision & Financing",
+							"subheadline": "General inquiries are not accepted at this time.",
+							"centered": true,
+							"image": {
+								"$media": {
+									"url": "https://static.wixstatic.com/media/a5f44b_c4a618ce3d34458cbc640cf01731fe03~mv2.png",
+									"alt": "Goat Mountain Enterprises",
+									"filename": "goat-mountain-logo.png"
+								}
+							}
+						},
+						{
+							"_type": "marketing_gallery",
+							"_version": 1,
+							"_key": "background",
+							"anchor_id": "background",
+							"headline": "Background",
+							"columns": "2",
+							"images": [
+								{
+									"image": {
+										"$media": {
+											"url": "https://static.wixstatic.com/media/a5f44b_79fa29248dcb44c6a63f9e2a2e2d233b~mv2_d_2560_1440_s_2.jpg",
+											"alt": "City skyline at dusk",
+											"filename": "skyline.jpg"
+										}
+									}
+								}
+							]
+						},
+						{
+							"_type": "marketing_gallery",
+							"_version": 1,
+							"_key": "associations",
+							"anchor_id": "associations",
+							"columns": "2",
+							"images": [
+								{
+									"image": {
+										"$media": {
+											"url": "https://static.wixstatic.com/media/a5f44b_f147a3810ab5483e93374ee9e1a495dd~mv2.png",
+											"alt": "National ATM Council member",
+											"filename": "national-atm-council.png"
+										}
+									}
+								},
+								{
+									"image": {
+										"$media": {
+											"url": "https://static.wixstatic.com/media/a5f44b_8dd069181c2f425693915531d5da0faf~mv2.png",
+											"alt": "ATM Industry Association member",
+											"filename": "atm-industry-association.png"
+										}
+									}
+								}
+							]
+						},
+						{
+							"_type": "marketing_gallery",
+							"_version": 1,
+							"_key": "site-icon",
+							"anchor_id": "site-icon",
+							"headline": "Site icon (not shown on the page)",
+							"columns": "2",
+							"images": [
+								{
+									"image": {
+										"$media": {
+											"url": "https://static.wixstatic.com/media/a5f44b_cd17a8240b35450ebb761c59138d977d~mv2_d_2048_2048_s_2.jpg",
+											"alt": "Goat Mountain Enterprises icon",
+											"filename": "goat-mountain-icon.jpg"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "privacy-policy",
+				"slug": "privacy-policy",
+				"status": "published",
+				"data": {
+					"title": "Privacy Policy",
+					"content": [
+						{
+							"_type": "marketing_text",
+							"_version": 1,
+							"_key": "privacy",
+							"headline": "Privacy Policy",
+							"body": "You do not provide any voluntary personal information to us via this website. However, we may collect information about you when you visit and interact with this website.\n\nWe may use automatic data collection technologies, including Google Analytics, to collect certain information about your equipment, browsing actions and patterns. The type of information that may be automatically collected may include date and time of access to the website, your traffic pattern through our website, any communications between your computer and our website, the internet protocol address of the computer that you are using, the domain and host from which you access the Internet, the type of computer you use, your internet connection, your browser software and operating system, and the specific activities you are engaged in while visiting the website.\n\nThe information we collect automatically is used for statistical data and will not include personal information. We use this data to improve our website and our offerings. To the extent that you voluntarily provide personal information to us, our systems will associate the automatically collected information with your personal information.\n\nWe do not share this information unless required by law."
+						}
+					]
+				}
+			}
+		]
+	}
+}
